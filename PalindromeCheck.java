@@ -2,8 +2,23 @@ package PalindromeCheckerApp;
 
 public class PalindromeCheck {
     public static void main(String[] args) {
-        System.out.println("Welcome to Palindrome Checker App");
-        System.out.println("Version 1.0");
-        System.out.println("System initialized successfully");
+        Scanner sc =new Scanner(System.in);
+        System.out,print("Input text:");
+        String input=sc.nextalaine();
+        boolean isPalindrome = true;
+        int n=input.length()-1;
+        for(int i= 0;i<n;i++){
+            if input.charAt(i)!=input.charAt(n-1))
+            {
+                isPalindrome=false;
+                break;
+            }
+        }
+        if(isPalindrome){
+            System.out.println("It is a palindrome ? : "+isPalindrome);
+        }else{
+            System.out.println("It is not a palindrome ? :");
+        }
+
     }
 }
