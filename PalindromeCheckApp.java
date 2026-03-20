@@ -1,37 +1,30 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class PalindromeCheckApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        // Input
-        System.out.print("Enter a string: ");
+        System.out.print("Enter string: ");
         String str = sc.nextLine();
 
-        // Convert string to char array
-        char[] arr = str.toCharArray();
+        Queue<Character> q = new LinkedList<>();
+        Stack<Character> s = new Stack<>();
 
-        // Two-pointer approach
-        int start = 0;
-        int end = arr.length - 1;
-        boolean isPalindrome = true;
+        // add characters
+        for (char c : str.toCharArray()) {
+            q.add(c); // enqueue
+            s.push(c); // push
+        }
 
-        while (start < end) {
-            if (arr[start] != arr[end]) {
-                isPalindrome = false;
+        boolean isPal = true;
+
+        // compare
+        for (int i = 0; i < str.length(); i++) {
+            if (q.remove() != s.pop()) {
+                isPal = false;
                 break;
             }
-            start++;
-            end--;
         }
 
-        // Output
-        if (isPalindrome) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not a Palindrome");
-        }
-
-        sc.close();
+        System.out.println(isPal ? "Palindrome" : "Not Palindrome");
     }
 }
