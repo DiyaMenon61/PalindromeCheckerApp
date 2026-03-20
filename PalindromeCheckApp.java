@@ -6,20 +6,18 @@ public class PalindromeCheckApp {
         System.out.print("Enter string: ");
         String str = sc.nextLine();
 
-        Queue<Character> q = new LinkedList<>();
-        Stack<Character> s = new Stack<>();
+        Deque<Character> d = new LinkedList<>();
 
-        // add characters
+        // add characters to deque
         for (char c : str.toCharArray()) {
-            q.add(c); // enqueue
-            s.push(c); // push
+            d.add(c);
         }
 
         boolean isPal = true;
 
-        // compare
-        for (int i = 0; i < str.length(); i++) {
-            if (q.remove() != s.pop()) {
+        // compare front and rear
+        while (d.size() > 1) {
+            if (d.removeFirst() != d.removeLast()) {
                 isPal = false;
                 break;
             }
