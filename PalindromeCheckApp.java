@@ -1,28 +1,64 @@
 import java.util.*;
 
+class Node {
+    char d;
+    Node next;
+
+    Node(char d) {
+        this.d = d;
+    }
+}
+
 public class PalindromeCheckApp {
+
+    static Node rev(Node h) {
+        Node p = null;
+        while (h != null) {
+            Node n = h.next;
+            h.next = p;
+            p = h;
+            h = n;
+        }
+        return p;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter string: ");
-        String str = sc.nextLine();
+        String s = sc.nextLine();
 
-        Deque<Character> d = new LinkedList<>();
+        Node h = null, t = null;
 
-        // add characters to deque
-        for (char c : str.toCharArray()) {
-            d.add(c);
-        }
-
-        boolean isPal = true;
-
-        // compare front and rear
-        while (d.size() > 1) {
-            if (d.removeFirst() != d.removeLast()) {
-                isPal = false;
-                break;
+        // create list
+        for (char c : s.toCharArray()) {
+            Node n = new Node(c);
+            if (h == null)
+                h = t = n;
+            else {
+                t.next = n;
+                t = n;
             }
         }
 
-        System.out.println(isPal ? "Palindrome" : "Not Palindrome");
+        // middle
+        Node slow = h, fast = h;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // reverse + compare
+        Node r = rev(slow);
+        boolean p = true;
+
+        while (r != null) {
+            if (h.d != r.d) {
+                p = false;
+                break;
+            }
+            h = h.next;
+            r = r.next;
+        }
+
+        System.out.println(p ? "Palindrome" : "Not Palindrome");
     }
 }
